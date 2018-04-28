@@ -19,18 +19,21 @@ functions:
       - http:
           method: GET
           path: accounts/{id}
+          cors: true
   getAccounts:
     handler: handler.getAccountById # get account by id - with no id return all accounts
     events:
       - http:
           method: GET
           path: accounts/
+          cors: true
   getProductById:
     handler: handler.getProductById # get account by id - with no id return all accounts
     events:
       - http:
           method: GET
           path: products/{id}
+          cors: true
 
   getProducts: # get all products
     handler: handler.getProducts # get products by id
@@ -47,12 +50,19 @@ functions:
           method: GET
           path: rproducts/{id}
 
+
   rProductsByProductId:
     handler: handler.rProductsByProductId # personalized by user
     events:
       - http:
+          path: linkproducts/
           method: GET
-          path: rproducts/{pid}/accounts/{id}
+          cors: true
 
   rAccountsForProduct:
     handler: handler.rAccountsForProduct # accounts for products
+    events:
+      - http:
+          path: accountsforproducts/{id}
+          method: GET
+          cors: true

@@ -111,13 +111,22 @@ const data = {meta: {id:undefined}, payload:undefined}
 let extractEventParams = event => {
   return new Promise( (resolve, reject)=>{
     console.log('Extract event params ')
-    //console.log(event)
+    console.log(event)
     if(event.pathParameters === undefined || event.pathParameters === null) {
         console.log('Event path parameters was not provided')
-      } //handle no params
-    else{
-      data.meta.id=event.pathParameters.id-1 //to accomodate array semantics
-    }
+    }else{
+      console.log('event.pathParameters were provided'+event.pathParameters)
+      if('id' in event.pathParameters) data.meta.id=event.pathParameters.id-1 //to accomodate array semantics
+      if('pid' in event.pathParameters) data.meta.pid=event.pathParameters.pid//product
+    } 
+     if(event.queryStringParameters === null || event.queryStringParameters ===undefined ){
+      console.log('query string parameters were not provided')
+     }else{
+       console.log('query strings')
+       if('id' in event.queryStringParameters) data.meta.id=event.queryStringParameters.id
+       if('pid' in event/queryStringParameters) data.meta.pid=event.queryStringParameters.pid
+      }//handle no params
+      console.log(JSON.stringify(data))
     resolve(data)
   })
 }
@@ -133,13 +142,19 @@ let fetchAccounts = data => {
   } )
 }
 
-//fetch one or more products
+//fetch products from reccombee catalog
 const fetchProducts = data => {
-  return new Promise( (resolve, reject)=>{} )
+  return new Promise( (resolve, reject)=>{
+    client.send(new rqs.ListItems({'returnProperties':true}),(err,products) =>{
+      console.log(products)
+      data.payload = products
+      resolve(data)
+    })
+  })
 }
 
 //AI
-const fetchProductsForAccountId  = data => {
+const recommendProductsForAccountId  = data => {
   return new Promise( (resolve, reject)=>{
     let accountId="account-"+data.meta.id
     client.send(new rqs.RecommendItemsToUser(accountId, 5), (err, recommendations) => {
@@ -151,7 +166,7 @@ const fetchProductsForAccountId  = data => {
 }
 
 //
-const fetchProductsForProductId  = data => {
+const recommendProductsForProductId  = data => {
   return new Promise( (resolve, reject)=>{
     let accountId="account-"+data.meta.id //account
     let productId="product-"+data.meta.pid //product
@@ -164,8 +179,9 @@ const fetchProductsForProductId  = data => {
 
     } )
 }
-//todo - when viewing a product, what user's might be prospects for cross selling 
-const fetchAccountsForProductId  = data => {
+// - when viewing a product, what user's might be prospects for cross selling 
+// for a product-id which useds should be targetted
+const recommendAccountsForProductId  = data => {
   return new Promise( (resolve, reject)=>{
     let productId="product-"+data.meta.pid //product
 
@@ -230,7 +246,7 @@ Promise.resolve(event)
 module.exports.rProductsForAccountId=(event,context,callback) =>
 Promise.resolve(event)
 .then(extractEventParams)
-.then(fetchProductsForAccountId)
+.then(recommendProductsForAccountId)
 .then(respond(callback))
 .catch(error=>respondWithError(error, callback))
 
@@ -238,9 +254,14 @@ Promise.resolve(event)
 module.exports.rProductsByProductId=(event,context,callback) =>
 Promise.resolve(event)
 .then(extractEventParams)
-.then(fetchProductsForProductId)
+.then(recommendProductsForProductId)
 .then(respond(callback))
 .catch(error=>respondWithError(error, callback))
 
 //for a given account what products might they be likely 
-module.exports.rAccountsForProduct=(event,context,callback) => {return callback(null, {})}
+module.exports.rAccountsForProduct=(event,context,callback) => 
+Promise.resolve(event)
+.then(extractEventParams)
+.then(recommendProductsForProductId)
+.then(respond(callback))
+.catch(error=>respondWithError(error, callback))
