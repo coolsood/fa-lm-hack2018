@@ -1,0 +1,14 @@
+{
+  "name": "uxs",
+  "version": "1.0.0",
+  "description": "Upsell Cross Sell Recommendations Services for Insurance backed by AI",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "recombee-api-client": "^2.1.0"
+  }
+}

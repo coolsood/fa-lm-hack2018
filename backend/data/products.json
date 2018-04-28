@@ -1,0 +1,137 @@
+[
+  {"Name":"Auto & Vehicle",
+  "Market":"GRM"
+  },
+  {"Name":"Car",
+  "Market":"GRM"
+  },
+  {"Name":"Motorcycle",
+  "Market":"GRM"
+  },
+  {"Name":"Boat & Watercraft",
+  "Market":"GRM"
+  },
+  {"Name":"Antique & Classic Car",
+  "Market":"GRM"
+  },
+  {"Name":"ATV & Off-Road Vehicle",
+  "Market":"GRM"
+  },
+  {"Name":"Recreational Vehicle (RV)",
+  "Market":"GRM"
+  },
+  {"Name":"Umbrella",
+  "Market":"GRM"
+  },
+  {"Name":"Vehicle Service Plan",
+  "Market":"GRM"
+  },
+  {"Name":"Property",
+  "Market":"GRM"
+  },
+  {"Name":"Homeowners",
+  "Market":"GRM"
+  },
+  {"Name":"Renters",
+  "Market":"GRM"
+  },
+  {"Name":"Condo",
+  "Market":"GRM"
+  },
+  {"Name":"Landlord",
+  "Market":"GRM"
+  },
+  {"Name":"Mobile Home Insurance",
+  "Market":"GRM"
+  },
+  {"Name":"Flood",
+  "Market":"GRM"
+  },
+  {"Name":"Umbrella",
+  "Market":"GRM"
+  },
+  {"Name":"Other Insurance",
+  "Market":"GRM"
+  },
+  {"Name":"Life",
+  "Market":"GRM"
+  },
+  {"Name":"Accident Insurance",
+  "Market":"GRM"
+  },
+  {"Name":"Critical Illness",
+  "Market":"GRM"
+  },
+  {"Name":"Identity Theft",
+  "Market":"GRM"
+  },
+  {"Name":"Pet Insurance",
+  "Market":"GRM"
+  },
+  {"Name":"Tuition Insurance",
+  "Market":"GRM"
+  },
+  {"Name":"Small Business",
+  "Market":"GRM"
+  },
+  {"Name":"Business Owner's Policy & Packages",
+  "Market":"GRS"
+  },
+  {"Name":"Captives",
+  "Market":"GRS"
+  },
+  {"Name":"Commercial Auto",
+  "Market":"GRS"
+  },
+  {"Name":"Equipment Breakdown",
+  "Market":"GRS"
+  },
+  {"Name":"Excess Liability",
+  "Market":"GRS"
+  },
+  {"Name":"General Liability",
+  "Market":"GRS"
+  },
+  {"Name":"Group Programs",
+  "Market":"GRS"
+  },
+  {"Name":"Inland Marine",
+  "Market":"GRS"
+  },
+  {"Name":"Property",
+  "Market":"GRS"
+  },
+  {"Name":"Reinsurance",
+  "Market":"GRS"
+  },
+  {"Name":"Specialty Programs",
+  "Market":"GRS"
+  },
+  {"Name":"Surety Bonds",
+  "Market":"GRS"
+  },
+  {"Name":"Third Party Administration",
+  "Market":"GRS"
+  },
+  {"Name":"Umbrella",
+  "Market":"GRS"
+  },
+  {"Name":"Workers Compensation",
+  "Market":"GRS"
+  },
+  {"Name":"Absence Management",
+  "Market":"GRS"
+  },
+  {"Name":"Group Disability",
+  "Market":"GRS"
+  },
+  {"Name":"Group Life",
+  "Market":"GRS"
+  },
+  {"Name":"Online Solutions",
+  "Market":"GRS"
+  },
+  {"Name":"Volundary Benefits",
+  "Market":"GRS"
+  }
+]

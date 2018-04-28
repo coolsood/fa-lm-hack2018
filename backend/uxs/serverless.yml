@@ -1,0 +1,58 @@
+
+service: uxs
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+  stage: hack
+  region: us-east-1
+
+functions:
+  getAccountById:
+    handler: handler.getAccountById # get account by id - with no id return all accounts
+    events:
+      - http:
+          method: GET
+          path: accounts/{id}
+  getAccounts:
+    handler: handler.getAccountById # get account by id - with no id return all accounts
+    events:
+      - http:
+          method: GET
+          path: accounts/
+  getProductById:
+    handler: handler.getProductById # get account by id - with no id return all accounts
+    events:
+      - http:
+          method: GET
+          path: products/{id}
+
+  getProducts: # get all products
+    handler: handler.getProducts # get products by id
+    events:
+      - http:
+          method: GET
+          path: products/
+
+
+  rProductsForAccountId:
+    handler: handler.rProductsForAccountId # get recommended product 
+    events:
+      - http:
+          method: GET
+          path: rproducts/{id}
+
+  rProductsByProductId:
+    handler: handler.rProductsByProductId # personalized by user
+    events:
+      - http:
+          method: GET
+          path: rproducts/{pid}/accounts/{id}
+
+  rAccountsForProduct:
+    handler: handler.rAccountsForProduct # accounts for products
