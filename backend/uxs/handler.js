@@ -115,7 +115,7 @@ let extractEventParams = event => {
     if(event.pathParameters === undefined || event.pathParameters === null) {
         console.log('Event path parameters was not provided')
     }else{
-      console.log('event.pathParameters were provided'+event.pathParameters)
+      console.log('event.pathParameters were provided '+event.pathParameters)
       if('id' in event.pathParameters) data.meta.id=event.pathParameters.id-1 //to accomodate array semantics
       if('pid' in event.pathParameters) data.meta.pid=event.pathParameters.pid//product
     } 
@@ -262,6 +262,6 @@ Promise.resolve(event)
 module.exports.rAccountsForProduct=(event,context,callback) => 
 Promise.resolve(event)
 .then(extractEventParams)
-.then(recommendProductsForProductId)
+.then(recommendAccountsForProductId)
 .then(respond(callback))
 .catch(error=>respondWithError(error, callback))

@@ -63,6 +63,6 @@ functions:
     handler: handler.rAccountsForProduct # accounts for products
     events:
       - http:
-          path: accountsforproducts/{id}
+          path: accountsforproducts/{pid}
           method: GET
           cors: true
