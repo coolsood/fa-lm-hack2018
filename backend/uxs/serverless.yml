@@ -32,7 +32,7 @@ functions:
     events:
       - http:
           method: GET
-          path: products/{id}
+          path: products/{id} # this won't allow pid as the path param, why?
           cors: true
 
   getProducts: # get all products

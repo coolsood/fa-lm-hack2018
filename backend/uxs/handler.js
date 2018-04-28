@@ -105,7 +105,12 @@ const accounts=[{"name":"Briny Meni","address":"953 Derek Alley","city":"Clevela
 {"name":"Celka McAuslene","address":"6 Blue Bill Park Alley","city":"Evansville","state":"Indiana","zip":"47719"},
 {"name":"Berthe Giotto","address":"69999 Maple Wood Crossing","city":"Warren","state":"Ohio","zip":"44485"}]
 //a generalized data structure - meta for promise chain, payload what will get sent back to client.
-const data = {meta: {id:undefined}, payload:undefined}
+const data = {
+    meta: {
+          id: undefined,
+          pid:undefined
+          }, 
+    payload:undefined}
 
 
 let extractEventParams = event => {
@@ -124,7 +129,7 @@ let extractEventParams = event => {
      }else{
        console.log('query strings')
        if('id' in event.queryStringParameters) data.meta.id=event.queryStringParameters.id
-       if('pid' in event/queryStringParameters) data.meta.pid=event.queryStringParameters.pid
+       if('pid' in event.queryStringParameters) data.meta.pid=event.queryStringParameters.pid
       }//handle no params
       console.log(JSON.stringify(data))
     resolve(data)
@@ -143,12 +148,24 @@ let fetchAccounts = data => {
 }
 
 //fetch products from reccombee catalog
+// see serverless 
 const fetchProducts = data => {
   return new Promise( (resolve, reject)=>{
     client.send(new rqs.ListItems({'returnProperties':true}),(err,products) =>{
-      console.log(products)
-      data.payload = products
-      resolve(data)
+      console.log('fetching products')
+      console.log('data is \n'+JSON.stringify(data))
+      if('id' in data.meta && data.meta.id){
+        console.log('fetching product '+data.meta.id)
+        data.payload = products.find(function(p){
+          return p.itemId === 'product-'+data.meta.id+1
+        })
+        
+        }else{
+          console.log('pushing entire products in')
+          data.payload = products
+        }
+        resolve(data)
+      
     })
   })
 }
@@ -170,6 +187,7 @@ const recommendProductsForProductId  = data => {
   return new Promise( (resolve, reject)=>{
     let accountId="account-"+data.meta.id //account
     let productId="product-"+data.meta.pid //product
+    console.log('accountId '+accountId+' productId '+productId)
     client.send(new rqs.RecommendItemsToItem(productId, accountId, 5),
     (err, recommendations) => {
       console.log(recommendations);
@@ -222,16 +240,23 @@ const respondWithError = (error, callback) => {
 })}
 
 module.exports.getAccountById=(event,context,callback)=>
+  Promise.resolve(event)
+  .then(extractEventParams)
+  .then(fetchAccounts)
+  .then(respond(callback))
+  .catch(error=>respondWithError(error, callback))
+
+module.exports.getAccounts=(event,context,callback)=>
 Promise.resolve(event)
 .then(extractEventParams)
 .then(fetchAccounts)
 .then(respond(callback))
 .catch(error=>respondWithError(error, callback))
 
-module.exports.getAccounts=(event,context,callback)=>
+module.exports.getProductById=(event,context,callback)=>
 Promise.resolve(event)
 .then(extractEventParams)
-.then(fetchAccounts)
+.then(fetchProducts)
 .then(respond(callback))
 .catch(error=>respondWithError(error, callback))
 
